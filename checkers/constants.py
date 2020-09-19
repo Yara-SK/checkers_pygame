@@ -11,7 +11,11 @@ SQS = WIDTH//COLS
 RED = (255, 0, 0)
 BLUE = (0, 0, 255)
 WHITE = (255, 255, 255)
-GRAY = (128, 128, 128)
+GREY = (128, 128, 128)
 BLACK = (0, 0, 0)
 
 FPS = 60
+
+#CROWN = pygame.transform.scale(pygame.image.load('assets/crown.png'), (44,25))
+CROWN = pygame.image.load('assets/crown.png')
+CROWN = pygame.transform.scale(CROWN, (44,25))

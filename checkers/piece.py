@@ -1,8 +1,8 @@
 import pygame
-from .constants import BLACK, RED, GRAY, SQS
+from .constants import BLACK, RED, GREY, SQS, CROWN
 class Piece:
-    PADIING = 10
-    BORDER = 2
+    PADIING = 13
+    BORDER = 4
 
     def __init__(self, row, col, color):
         self.row = row
@@ -29,8 +29,16 @@ class Piece:
 
     def draw(self, win):
         radius = SQS//2 - self.PADIING
-        pygame.draw.circle(win,GRAY,self.color,(self.x, self.y),radiuss+self.OUTLINE)
-        pygame.draw.circle(win,self.color,(self.x, self.y),radiu)
+        pygame.draw.circle(win,GREY,(self.x, self.y),radius+self.BORDER)
+        pygame.draw.circle(win,self.color,(self.x, self.y),radius)
+        if self.king:
+            # drawing crown in the middle of the piece
+            win.blit(CROWN, (self.x-CROWN.get_width()/2, self.y-CROWN.get_height()//2))
+
+    def move(self, row, col):
+        self.row = row
+        self.col = col
+        self.calc_pos()
 
     # to avoid <object at x2342....>
     def __repr__(self):
