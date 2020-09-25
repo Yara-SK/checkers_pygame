@@ -1,8 +1,8 @@
 import pygame
-from .constants import BLACK, RED, GREY, SQS, CROWN
+from .constants import WHITE, RED, GREY, SQS, CROWN
 class Piece:
-    PADIING = 13
-    BORDER = 4
+    PADIING = 15
+    BORDER = 2
 
     def __init__(self, row, col, color):
         self.row = row
@@ -16,8 +16,8 @@ class Piece:
 
     # calculating the position of a round piece
     def calc_pos(self):
-        self.x = SQS*self.col + SQS // 2
-        self.y = SQS*self.row + SQS // 2
+        self.x = SQS*self.col + SQS//2
+        self.y = SQS*self.row + SQS//2
 
     def make_king(self):
         self.king = True

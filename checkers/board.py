@@ -14,7 +14,7 @@ class Board:
         win.fill(BLACK)
 
         for row in range(ROWS):
-            for col in range(row%2, ROWS, 2):
+            for col in range(row%2, COLS, 2):
                 pygame.draw.rect(win, RED, (row*SQS,col*SQS, SQS, SQS))
 
     def move(self, piece, row, col):
@@ -22,7 +22,7 @@ class Board:
                 self.board[row][col], self.board[piece.row][piece.col]
         piece.move(row, col)
 
-        if row == ROWS or row == 0:
+        if row == ROWS-1 or row == 0:
             piece.make_king()
             #won't crash on starting position, because piece has to move into the square
             if piece.color == WHITE:
@@ -54,6 +54,15 @@ class Board:
                 piece = self.board[row][col]
                 if piece != 0:
                     piece.draw(win)
+
+    def remove(self, pieces):
+        for piece in pieces:
+            self.board[piece.row][piece.col] = 0
+            if piece != 0:
+                if piece.color == RED:
+                    self.red_left -= 1
+                else:
+                    self.white_left -= 1
 
     def get_valid_moves(self, piece):
         moves = {}

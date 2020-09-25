@@ -43,6 +43,10 @@ class Game:
         #if we selected s/ and in (row,col) there is no other piece, and
         #if the square where we want to move the piece is valid_moves
             self.board.move(self.selected, row, col)
+            skipped = self.valid_moves[(row,col)]
+            if skipped:
+                self.board.remove(skipped)
+            self.change_turn()
         else:
             return False
 
@@ -55,6 +59,7 @@ class Game:
                     self.win,BLUE,(col*SQS + SQS//2, row*SQS + SQS//2),15)
 
     def change_turn(self):
+        self.valid_moves = {}
         if self.turn == RED:
             self.turn = WHITE
         else:
