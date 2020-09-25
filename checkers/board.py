@@ -1,5 +1,5 @@
 import pygame
-from .constants import BLACK, WHITE, RED, ROWS, COLS, SQS
+from .constants import BLACK, WHITE, RED, ROWS, COLS, SQUARE_SIZE
 from .piece import Piece
 
 class Board:
@@ -15,7 +15,7 @@ class Board:
 
         for row in range(ROWS):
             for col in range(row%2, COLS, 2):
-                pygame.draw.rect(win, RED, (row*SQS,col*SQS, SQS, SQS))
+                pygame.draw.rect(win, RED, (row*SQUARE_SIZE,col*SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE))
 
     def move(self, piece, row, col):
         self.board[piece.row][piece.col], self.board[row][col] = \
@@ -64,6 +64,14 @@ class Board:
                 else:
                     self.white_left -= 1
 
+    def winner(self):
+        if self.red_left <= 0:
+            return WHITE
+        elif self.white_left <= 0:
+            return RED
+
+        return None
+
     def get_valid_moves(self, piece):
         moves = {}
         left = piece.col -1
@@ -78,9 +86,9 @@ class Board:
 
         if piece.color == WHITE or piece.king:
             moves.update(
-            self._traverse_left(row+1, min(row-3, ROWS), 1, piece.color, left))
+            self._traverse_left(row+1, min(row+3, ROWS), 1, piece.color, left))
             moves.update(
-            self._traverse_right(row+1, min(row-3, ROWS), 1, piece.color, right))
+            self._traverse_right(row+1, min(row+3, ROWS), 1, piece.color, right))
 
         return moves
 

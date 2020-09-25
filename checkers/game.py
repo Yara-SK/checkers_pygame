@@ -1,6 +1,6 @@
 import pygame
 from .board import Board
-from .constants import RED, BLUE, WHITE, SQS
+from .constants import RED, BLUE, WHITE, SQUARE_SIZE
 
 class Game:
     def __init__(self, win):
@@ -18,10 +18,13 @@ class Game:
         self.turn = RED
         self.valid_moves = {}
 
+    def winner(self):
+        return self.board.winner()
+
     def reset(self):
         self._init()
 
-    def select(self,row,col):
+    def select(self, row, col):
         if self.selected: #piece selected
             result = self._move(row,col) #move to a certain square
             if not result: #if the move is illegal
@@ -55,12 +58,11 @@ class Game:
     def draw_valid_moves(self, moves):
         for move in moves:
             row, col = move
-            pygame.draw.circle(
-                    self.win,BLUE,(col*SQS + SQS//2, row*SQS + SQS//2),15)
+            pygame.draw.circle(self.win, BLUE, (col * SQUARE_SIZE + SQUARE_SIZE//2, row * SQUARE_SIZE + SQUARE_SIZE//2), 15)
 
     def change_turn(self):
         self.valid_moves = {}
         if self.turn == RED:
             self.turn = WHITE
         else:
-            self.turn == RED
+            self.turn = RED

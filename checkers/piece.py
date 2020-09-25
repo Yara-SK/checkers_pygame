@@ -1,5 +1,5 @@
 import pygame
-from .constants import WHITE, RED, GREY, SQS, CROWN
+from .constants import WHITE, RED, GREY, SQUARE_SIZE, CROWN
 class Piece:
     PADIING = 15
     BORDER = 2
@@ -16,14 +16,14 @@ class Piece:
 
     # calculating the position of a round piece
     def calc_pos(self):
-        self.x = SQS*self.col + SQS//2
-        self.y = SQS*self.row + SQS//2
+        self.x = SQUARE_SIZE*self.col + SQUARE_SIZE//2
+        self.y = SQUARE_SIZE*self.row + SQUARE_SIZE//2
 
     def make_king(self):
         self.king = True
 
     def draw(self, win):
-        radius = SQS//2 - self.PADIING
+        radius = SQUARE_SIZE//2 - self.PADIING
         pygame.draw.circle(win,GREY,(self.x, self.y),radius+self.BORDER)
         pygame.draw.circle(win,self.color,(self.x, self.y),radius)
         if self.king:
