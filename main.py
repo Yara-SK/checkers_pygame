@@ -1,10 +1,12 @@
 import pygame
-from checkers.constants import WIDTH, HEIGHT, SQUARE_SIZE, RED, FPS
+from checkers.constants import WIDTH, HEIGHT, SQUARE_SIZE, RED
 from checkers.board import Board
 from checkers.game import Game
 
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('Checkers')
+
+FPS = 60
 
 # doing things with the mouse
 def get_row_col_from_mouse(pos):

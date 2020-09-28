@@ -1,12 +1,12 @@
 import pygame
-from .board import Board
-from .constants import RED, BLUE, WHITE, SQUARE_SIZE
+from .constants import RED, WHITE, BLUE, SQUARE_SIZE
+from checkers.board import Board
 
 class Game:
     def __init__(self, win):
         self._init()
         self.win = win
-
+    
     def update(self):
         self.board.draw(self.win)
         self.draw_valid_moves(self.valid_moves)
@@ -25,28 +25,25 @@ class Game:
         self._init()
 
     def select(self, row, col):
-        if self.selected: #piece selected
-            result = self._move(row,col) #move to a certain square
-            if not result: #if the move is illegal
-                self.selected = None #reset the move
-                self.select(row,col) #run the code after 'else'
-
-        piece = self.board.get_piece(row,col)
+        if self.selected:
+            result = self._move(row, col)
+            if not result:
+                self.selected = None
+                self.select(row, col)
+        
+        piece = self.board.get_piece(row, col)
         if piece != 0 and piece.color == self.turn:
-        #if we're not selecting an empty piece and it's the color of turn
-            self.selected = piece #
+            self.selected = piece
             self.valid_moves = self.board.get_valid_moves(piece)
             return True
-
+            
         return False
 
     def _move(self, row, col):
         piece = self.board.get_piece(row, col)
-        if self.selected and piece == 0 and (row,col) in self.valid_moves:
-        #if we selected s/ and in (row,col) there is no other piece, and
-        #if the square where we want to move the piece is valid_moves
+        if self.selected and piece == 0 and (row, col) in self.valid_moves:
             self.board.move(self.selected, row, col)
-            skipped = self.valid_moves[(row,col)]
+            skipped = self.valid_moves[(row, col)]
             if skipped:
                 self.board.remove(skipped)
             self.change_turn()
